@@ -54,7 +54,7 @@ export default class StopWatch extends Component {
 const styles = StyleSheet.create({
   allStopWatchComponent : {
     justifyContent: 'flex-end',
-    marginBottom : 60
+    // marginBottom : 60
   },
   buttons : {
     flexDirection: 'row',

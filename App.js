@@ -9,7 +9,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation'
 import HomeScreen from './screens/homeScreen';
 import WorkoutPlanScreen from './screens/workoutPlan';
-
+import LogoTitle from './components/logo';
 // const App = () => {
 //   return (
 //     <View style={styles.container}>
@@ -20,13 +20,16 @@ import WorkoutPlanScreen from './screens/workoutPlan';
 
 const AppNavigator = createStackNavigator({
   Home : {
-    screen : HomeScreen
+    screen : HomeScreen,
+    navigationOptions : (navigation) => ({
+      headerTitle : LogoTitle
+    }),
   },
   Workout : {
     screen : WorkoutPlanScreen
   },
 },{
-  initialRouteName : 'Workout'
+  initialRouteName : 'Home'
 });
 
 export default createAppContainer(AppNavigator);

@@ -4,45 +4,26 @@ import { StyleSheet, Text, View , ScrollView , FlatList} from 'react-native';
 import { workout } from '../enums/workouts';
 import Exercises from '../components/Exercise';
 import StopWatch from '../components/stopWatch';
-
-const exercisesPath = '../img/Exercises/';
-
-const fullBody_A_data = [
-    {
-        req :require(exercisesPath + 'Barbell_Bench_Press'               + '.jpg'),
-        name    : 'Barbell Bench Press'
-    },
-    {
-        req :require(exercisesPath + 'Barbell_Back_Squat'                + '.jpg'),
-        name    : 'Barbell Back Squat'
-    },
-    {
-        req :require(exercisesPath + 'Pull_Ups'                          + '.jpg'),
-        name    :'Pull Ups'
-    },
-    {
-        req :require(exercisesPath + 'Lying_Dumbbell_Hamstring_Curls'    + '.jpg'),
-        name    :'Lying Dumbbell Hamstring Curls'
-    },
-    {
-        req :require(exercisesPath + 'Standing_Overhead_Press'           + '.jpg'),
-        name    :'Standing Overhead Press'
-    },
-    {
-        req :require(exercisesPath + 'Face_Pulls'                        + '.jpg'),
-        name    :'Face Pulls'
-    },
-    {
-        req :require(exercisesPath + 'Drag_Curls'                        + '.jpg'),
-        name    :'Drag Curls'
-    }
-];
-
+import { fullBody_A_data , fullBody_B_data } from '../data/exerciseData';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 export default class WorkoutPlanScreen extends Component {
 
     constructor(props) {
         super(props);
+    }
+
+    static navigationOptions = {
+        title : 'Workout',
+        headerStyle : {
+            backgroundColor : '#f7f7f7',
+            
+        },
+        headerTitleStyle : {
+            fontWeight: 'bold',
+            textAlign :'center',
+            flex : 1
+        }
     }
 
     getExercise = (props) => {
@@ -53,7 +34,9 @@ export default class WorkoutPlanScreen extends Component {
 
         return (
             <View style={styles.container}>
-                <Exercises pictureName={props.item.req}/>
+                <Exercises
+                    exercisesName={props.item.name} 
+                    pictureName={props.item.req}/>
             </View>
         );
     }
@@ -64,6 +47,9 @@ export default class WorkoutPlanScreen extends Component {
             case workout.fullBody_A:
                 data = fullBody_A_data;
                 break;
+            case workout.fullBody_B:
+                data = fullBody_B_data;
+            break;
             default:
                 break;
         }
@@ -84,7 +70,7 @@ export default class WorkoutPlanScreen extends Component {
                             renderItem={ 
                                 ({ item }) => this.getExercise({item})
                             }
-                            // keyExtractor={(item,index) => index}
+                            keyExtractor={(item,index) => item.id}
                         />
                         </View>
                     </ScrollView>
