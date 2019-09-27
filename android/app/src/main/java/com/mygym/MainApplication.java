@@ -12,6 +12,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 
 import java.util.List;
+import com.facebook.react.modules.i18nmanager.I18nUtil;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -20,6 +21,8 @@ public class MainApplication extends Application implements ReactApplication {
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
     }
+
+
 
     @Override
     protected List<ReactPackage> getPackages() {
@@ -36,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
     }
   };
 
+  
   @Override
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
@@ -45,5 +49,8 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    // FORCE LTR
+    I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
+    sharedI18nUtilInstance.allowRTL(getApplicationContext(), false);
   }
 }

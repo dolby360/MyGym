@@ -10,13 +10,6 @@ import { createAppContainer } from 'react-navigation'
 import HomeScreen from './screens/homeScreen';
 import WorkoutPlanScreen from './screens/workoutPlan';
 import LogoTitle from './components/logo';
-// const App = () => {
-//   return (
-//     <View style={styles.container}>
-//       <HomeScreen/>
-//     </View>
-//   );
-// };
 
 const AppNavigator = createStackNavigator({
   Home : {
