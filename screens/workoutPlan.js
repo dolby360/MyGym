@@ -58,7 +58,7 @@ export default class WorkoutPlanScreen extends Component {
 
     render() {
         //TODO: make null as default 
-        const workoutPlan = this.props.navigation.getParam('workout',workout.fullBody_A);
+        const workoutPlan = this.props.navigation.getParam('workout',null);
         let data = this.getData(workoutPlan);
         return(
             <View style={{flex:1}}>
