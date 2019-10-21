@@ -10,4 +10,4 @@ For now this application contains the following features:
 1) counter  - to count sets
 2) timer    - to measure time intervals between reps.
 3) workout plan - well...
-4) wight notes - to follow the progress  
+4) weight notes - to follow the progress  
