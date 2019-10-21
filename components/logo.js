@@ -9,7 +9,6 @@ export default class LogoTitle extends Component{
         return(
             <Image
                 source={Logo}
-                
             />
         );
     }

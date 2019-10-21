@@ -16,6 +16,7 @@
     "react-native-reanimated": "^1.2.0",
     "react-native-stopwatch-timer": "0.0.21",
     "react-navigation": "^4.0.5",
+    "react-navigation-drawer": "^2.3.1",
     "react-navigation-stack": "^1.7.3"
   },
   "devDependencies": {
