@@ -1,23 +1,21 @@
 
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text
-} from 'react-native';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation'
 import HomeScreen from './screens/homeScreen';
 import WorkoutPlanScreen from './screens/workoutPlan';
 import LogoTitle from './components/logo';
-
+import CreateNewWorkout from "./screens/createNewWorkoutScreen";
 
 const AppNavigator = createDrawerNavigator({
   Home : {
+    // screen : CreateNewWorkout,
     screen : HomeScreen,
-    // navigationOptions : (navigation) => ({
-    //   headerTitle : LogoTitle
-    // }),
+    navigationOptions : (navigation) => ({
+      headerTitle : LogoTitle
+    }),
+  },
+  NewWorkout : {
+    screen : CreateNewWorkout,
   },
   Workout : {
     screen : WorkoutPlanScreen,
@@ -28,19 +26,5 @@ const AppNavigator = createDrawerNavigator({
 },{
   // initialRouteName : 'Home'
 });
-
-// const AppNavigator = createStackNavigator({
-//   Home : {
-//     screen : HomeScreen,
-//     navigationOptions : (navigation) => ({
-//       headerTitle : LogoTitle
-//     }),
-//   },
-//   Workout : {
-//     screen : WorkoutPlanScreen
-//   },
-// },{
-//   initialRouteName : 'Home'
-// });
 
 export default createAppContainer(AppNavigator);
