@@ -13,19 +13,6 @@ export default class WorkoutPlanScreen extends Component {
         super(props);
     }
 
-    static navigationOptions = {
-        title : 'Workout',
-        headerStyle : {
-            backgroundColor : '#f7f7f7',
-            
-        },
-        headerTitleStyle : {
-            fontWeight: 'bold',
-            textAlign :'center',
-            flex : 1
-        }
-    }
-
     getExercise = (props) => {
         console.log('getExercise');
         console.log(props);
