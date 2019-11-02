@@ -1,10 +1,14 @@
-
+import React, { Component } from 'react';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation'
 import HomeScreen from './screens/homeScreen';
 import WorkoutPlanScreen from './screens/workoutPlan';
 import LogoTitle from './components/logo';
 import CreateNewWorkout from "./screens/createNewWorkoutScreen";
+
+import { Provider } from 'react-redux';
+import { createStore } from 'redux'
+import reducer from './reducers/newWorkout_reducer';
 
 const AppNavigator = createDrawerNavigator({
   Home : {
@@ -27,4 +31,14 @@ const AppNavigator = createDrawerNavigator({
   // initialRouteName : 'Home'
 });
 
-export default createAppContainer(AppNavigator);
+let Navigation  = createAppContainer(AppNavigator); 
+
+export default class App extends React.Component {
+  render() { 
+    return (
+      <Provider store={createStore(reducer)}>
+        <Navigation />
+      </Provider>
+    );
+  }
+}

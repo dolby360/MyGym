@@ -59,7 +59,10 @@ export default class HomeScreen extends Component {
             
             <View style={styles.planPick}>
               <Text style={{ marginLeft : 5,fontSize : 20}}>Full Body</Text>
-              <WorkoutPicker setWorkoutFunc={this.setWorkoutPlan}/>
+              <WorkoutPicker 
+                setWorkoutFunc={this.setWorkoutPlan}
+                
+              />
             </View>
             
             <View style={{flex : 1,alignSelf: 'center',}}>

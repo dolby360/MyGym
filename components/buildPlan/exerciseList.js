@@ -65,23 +65,10 @@ export default class WorkoutPlanScreen extends Component {
         );
     }
 
-    addPlanButton = () =>{
-        return(
-            <View style={{ flex : 1 ,alignSelf : 'center', width : '30%'}}>
-                <Button
-                    title="Add workout"
-                    onPress={ ()=>{
-                        console.log(this.state.listOfChosenItems)
-                    } }
-                />
-            </View>
-        );
-    }
-
     render() {
         return(
-            <View  style={{flex:1 }}>
-                <View style={{ flex : 6, alignItems : 'stretch', marginTop : '5%' , marginBottom : '5%'}}>
+            <View  style={{flex: 10}}>
+                <View style={{ alignItems : 'stretch', marginTop : '5%' , marginBottom : '1%'}}>
                     <FlatList
                         extraData={this.state}
                         // horizontal={true}
@@ -92,7 +79,6 @@ export default class WorkoutPlanScreen extends Component {
                         keyExtractor={(item,index) => item.id}
                     />
                 </View>
-                {this.addPlanButton()}
             </View>
         );
     }

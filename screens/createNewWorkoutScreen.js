@@ -1,31 +1,35 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View ,TouchableOpacity,ImageBackground  } from 'react-native';
+import { Button,StyleSheet, Text, View ,TouchableOpacity,ImageBackground  } from 'react-native';
 import  Header  from "../components/header";
 import WorkoutField from "../components/buildPlan/workoutField";
 import ExerciseList from '../components/buildPlan/exerciseList';
+import AsyncStorage from '@react-native-community/async-storage';
+import { connect } from 'react-redux'
 
-export default class CreateNewWorkout extends Component {
+class CreateNewWorkout extends Component {
   constructor(props) {
     super(props);
     state = {
     }
-    this.retrieveData();
   }
 
-  retrieveData = async () => {
-    // try {
-    //   const value = await AsyncStorage.getItem('lastPlanUsed');
-    //   if (value !== null) {
-        
-    //   }
-    // } catch (error) {
-    // }
+  retrieveData = async (key) => {
+    let value;
+    try {
+      value = await AsyncStorage.getItem(key);
+    } catch (error) {
+    }
+    return value;
   };
 
   storeData = async () => {
     try {
-        await AsyncStorage.setItem('null', null);
+        let value = await this.retrieveData( '@#' + this.props.workoutName);
+        if( value !== null){
+          await AsyncStorage.removeItem( '@#' + this.props.workoutName)
+        }
+        await AsyncStorage.setItem(this.props.workoutName, this.props.workoutPlan);
     } catch (error) {
         // Error saving data
     }
@@ -33,6 +37,20 @@ export default class CreateNewWorkout extends Component {
 
   toggleSideBar = () =>{
     this.props.navigation.toggleDrawer();
+  }
+
+  addPlanButton = () =>{
+    return(
+        <View style={{ flex : 1, alignSelf : 'center', width : '30%'}}>
+            <Button
+                title="Add workout"
+                onPress={ ()=>{
+                    console.log(this.props.workoutName)
+                    console.log(this.props.workoutPlan)
+                } }
+            />
+        </View>
+    );
   }
 
   render() {
@@ -44,11 +62,21 @@ export default class CreateNewWorkout extends Component {
           <View style={styles.container}>
             <WorkoutField/>
             <ExerciseList/>
+            {this.addPlanButton()}
           </View>
         </ImageBackground>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    workoutName : state.workoutName,
+    workoutPlan : state.workoutPlan,
+  }
+}
+
+export default connect(mapStateToProps)(CreateNewWorkout);
 
 const styles = StyleSheet.create({
     container: {
