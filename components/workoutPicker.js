@@ -22,6 +22,11 @@ class WorkoutPicker extends Component{
         this.setState({ selected : value }) 
         this.props.setWorkoutFunc(value);
     }
+
+    componentDidMount(){
+        this.state.selected = this.props.defaultWorkout;
+    }
+
     render(){
         return (
             <View>

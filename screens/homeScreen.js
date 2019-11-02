@@ -1,17 +1,19 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View ,TouchableOpacity,ImageBackground  } from 'react-native';
+import { Button,StyleSheet, Text, View ,TouchableOpacity,ImageBackground  } from 'react-native';
 import WorkoutPicker from '../components/workoutPicker';
 import Header from '../components/header';
 import {workout} from '../enums/workouts';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
-    state = {
-      workoutPlan : workout.fullBody_A
-    }
+    
     this.retrieveData();
+  }
+  state = {
+    workoutPlan : workout.fullBody_A
   }
 
   retrieveData = async () => {
@@ -19,18 +21,20 @@ export default class HomeScreen extends Component {
       const value = await AsyncStorage.getItem('lastPlanUsed');
       if (value !== null) {
         this.setState({
-          workoutPlan : value
+          workoutPlan : Number(value)
         });
       }
     } catch (error) {
+      alert(error)
     }
   };
 
   storeData = async () => {
     try {
-        await AsyncStorage.setItem('lastPlanUsed', this.state.workoutPlan);
+        await AsyncStorage.setItem('lastPlanUsed', String(this.state.workoutPlan));
     } catch (error) {
         // Error saving data
+        alert(error)
     }
   };
 
@@ -43,6 +47,27 @@ export default class HomeScreen extends Component {
 
   toggleSideBar = () =>{
     this.props.navigation.toggleDrawer();
+  }
+
+  letsStart = () =>{
+    return(
+      <View style={{flex : 1,alignSelf: 'center',}}>
+        <TouchableOpacity onPress={ ()=>{
+              this.storeData();
+              this.props.navigation.navigate('Workout',{workout : this.state.workoutPlan,})
+            } 
+          }>
+          <View style={styles.customButton}>
+            <View style={{flex: 1,justifyContent: 'center',alignItems: 'center'}}>
+              <Text style={styles.textButton} >
+                Let's Start
+                
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
   }
 
   render() {
@@ -61,26 +86,11 @@ export default class HomeScreen extends Component {
               <Text style={{ marginLeft : 5,fontSize : 20}}>Full Body</Text>
               <WorkoutPicker 
                 setWorkoutFunc={this.setWorkoutPlan}
-                
+                initialWorkout={this.state.workoutPlan}
               />
             </View>
-            
-            <View style={{flex : 1,alignSelf: 'center',}}>
-              {/* Button -> Let's Start */}
-              <TouchableOpacity onPress={ ()=>{
-                    this.storeData();
-                    this.props.navigation.navigate('Workout',{workout : this.state.workoutPlan,})
-                  } 
-                }>
-                <View style={styles.customButton}>
-                  <View style={{flex: 1,justifyContent: 'center',alignItems: 'center'}}>
-                    <Text style={styles.textButton} >
-                      Let's Start
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <Text>{this.state.workoutPlan}</Text>
+            {this.letsStart()}
           </View>
         </ImageBackground>
     );
