@@ -6,7 +6,7 @@ import {
   Text,
   Picker
 } from 'react-native';
-
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
 import { workout } from '../enums/workouts';
 
 class WorkoutPicker extends Component{
@@ -29,15 +29,27 @@ class WorkoutPicker extends Component{
 
     render(){
         return (
-            <View>
-                <Picker
+            <View style={styles.container}>
+                <Card style={styles.card}>
+                    {/* <CardImage 
+                    source={{uri: 'http://bit.ly/2GfzooV'}} 
+                    resizeMode='contain'
+                    style={{backgroundColor : 'white'}}
+                    /> */}
+                    <Text style={{ alignSelf : 'center',textAlign : 'center',marginLeft : 5,fontSize : 20}}>Full Body</Text>
+                    <View style={{marginLeft : '5%',marginBottom : '1%'}}>
+                        <Text style={{fontSize : 16}}>{this.props.exercisesName}</Text>
+                    </View>
+                </Card>
+
+                {/* <Picker
                     style={{width : 200}}
                     selectedValue={this.state.selected}
                     onValueChange={ (value,index)=>this.setSelectedValue(value) }
                 >
                     <Picker.Item label='Workout A' value={workout.fullBody_A} />
                     <Picker.Item label='Workout B' value={workout.fullBody_B}/>
-                </Picker>
+                </Picker> */}
             </View>
           );
     }
@@ -45,7 +57,13 @@ class WorkoutPicker extends Component{
 };
 
 const styles = StyleSheet.create({
-
+    container : {
+        flex : 1,
+    },
+    card : {
+        alignSelf : 'center',
+        width : '80%'
+    }
 });
 
 export default WorkoutPicker;

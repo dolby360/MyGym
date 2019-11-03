@@ -51,7 +51,7 @@ export default class HomeScreen extends Component {
 
   letsStart = () =>{
     return(
-      <View style={{flex : 1,alignSelf: 'center',}}>
+      <View style={{flex : 1,alignSelf: 'center',justifyContent : 'flex-end',marginBottom : '5%'}}>
         <TouchableOpacity onPress={ ()=>{
               this.storeData();
               this.props.navigation.navigate('Workout',{workout : this.state.workoutPlan,})
@@ -93,14 +93,12 @@ export default class HomeScreen extends Component {
           <Header
             toggleDrawer={this.toggleSideBar}
           />
-          <View style={styles.container}>
 
+          <View style={styles.container}>
             <View style={{ marginTop : '5%',flex : 1, alignSelf : 'center'}}>
               <Text style={styles.text}>Choose your workout</Text>
             </View>
-            
-            <View style={styles.planPick}>
-              <Text style={{ marginLeft : 5,fontSize : 20}}>Full Body</Text>
+            <View style={{flex : 8}}>
               <WorkoutPicker 
                 setWorkoutFunc={this.setWorkoutPlan}
                 initialWorkout={this.state.workoutPlan}
@@ -108,25 +106,17 @@ export default class HomeScreen extends Component {
             </View>
             {this.letsStart()}
           </View>
+
         </ImageBackground>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  planPick : {
-    margin : 10,
-    alignItems : 'flex-start',
-    // backgroundColor : 'red',
-    flex : 3,
-    justifyContent : 'center'
-  },
+
   container: {
     flex: 1,
     flexDirection : 'column',
-    // backgroundColor: '#fff',
-    // alignItems: 'flex-start',
-    justifyContent: 'flex-start',
     backgroundColor: 'rgba(255,255,255,.6)'
   },
   text: {
