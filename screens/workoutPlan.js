@@ -14,10 +14,10 @@ export default class WorkoutPlanScreen extends Component {
     }
 
     getExercise = (props) => {
-        console.log('getExercise');
-        console.log(props);
-        console.log('req');
-        console.log(props.item.req);
+        // console.log('getExercise');
+        // console.log(props);
+        // console.log('req');
+        // console.log(props.item.req);
 
         return (
             <View style={styles.container}>

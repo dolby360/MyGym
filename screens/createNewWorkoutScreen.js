@@ -29,10 +29,12 @@ class CreateNewWorkout extends Component {
         if( value !== null){
           await AsyncStorage.removeItem( '@#' + this.props.workoutName)
         }
-        await AsyncStorage.setItem(this.props.workoutName, this.props.workoutPlan);
+        await AsyncStorage.setItem( '@#' + this.props.workoutName, JSON.stringify(this.props.workoutPlan));
     } catch (error) {
         // Error saving data
+        alert(error)
     }
+    console.log(JSON.stringify(this.props.workoutPlan));
   };
 
   toggleSideBar = () =>{
@@ -47,6 +49,7 @@ class CreateNewWorkout extends Component {
                 onPress={ ()=>{
                     console.log(this.props.workoutName)
                     console.log(this.props.workoutPlan)
+                    this.storeData();
                 } }
             />
         </View>

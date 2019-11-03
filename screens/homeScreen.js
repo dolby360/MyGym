@@ -18,7 +18,7 @@ export default class HomeScreen extends Component {
 
   retrieveData = async () => {
     try {
-      const value = await AsyncStorage.getItem('lastPlanUsed');
+      const value = await AsyncStorage.getItem('lastPlanUsed');                                                          
       if (value !== null) {
         this.setState({
           workoutPlan : Number(value)
@@ -42,7 +42,7 @@ export default class HomeScreen extends Component {
     this.setState({
       workoutPlan : plan,
     });
-    // console.log(plan);
+    console.log(plan);
   }
 
   toggleSideBar = () =>{
@@ -61,7 +61,6 @@ export default class HomeScreen extends Component {
             <View style={{flex: 1,justifyContent: 'center',alignItems: 'center'}}>
               <Text style={styles.textButton} >
                 Let's Start
-                
               </Text>
             </View>
           </View>
@@ -70,7 +69,25 @@ export default class HomeScreen extends Component {
     );
   }
 
+  test = async () =>{
+    // let keys = []
+    // try {
+    //   keys = await AsyncStorage.getAllKeys()
+    // } catch(e) {
+    //   // read key error
+    // }
+    // console.log(keys);
+
+    let value;
+    try {
+      value = await AsyncStorage.getItem('@#Chu');
+    } catch (error) {
+    }
+    console.log( JSON.parse(value) );
+  }
+
   render() {
+    this.test();
     return (
         <ImageBackground source={require('../img/cover.jpg')}  resizeMode='cover' style={styles.imageStyle}>
           <Header
@@ -89,7 +106,6 @@ export default class HomeScreen extends Component {
                 initialWorkout={this.state.workoutPlan}
               />
             </View>
-            <Text>{this.state.workoutPlan}</Text>
             {this.letsStart()}
           </View>
         </ImageBackground>
