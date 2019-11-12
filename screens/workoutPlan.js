@@ -6,8 +6,9 @@ import Exercises from '../components/Exercise';
 import StopWatch from '../components/stopWatch';
 import { fullBody_A_data , fullBody_B_data } from '../data/exerciseData';
 import { BorderlessButton } from 'react-native-gesture-handler';
+import { connect } from 'react-redux'
 
-export default class WorkoutPlanScreen extends Component {
+class WorkoutPlanScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -38,6 +39,7 @@ export default class WorkoutPlanScreen extends Component {
                 data = fullBody_B_data;
             break;
             default:
+                data = this.props.customWorkoutPlan;
                 break;
         }
         return data;
@@ -69,6 +71,14 @@ export default class WorkoutPlanScreen extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+      customWorkoutPlan : state.customWorkoutPlan,
+    }
+  }
+  
+export default connect(mapStateToProps)(WorkoutPlanScreen)
 
 const styles = StyleSheet.create({
     container:{

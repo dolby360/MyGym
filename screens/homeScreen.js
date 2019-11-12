@@ -51,7 +51,7 @@ export default class HomeScreen extends Component {
 
   letsStart = () =>{
     return(
-      <View style={{flex : 1,alignSelf: 'center',justifyContent : 'flex-end',marginBottom : '5%'}}>
+      <View style={{flex : 1.5,alignSelf: 'center',justifyContent : 'flex-end',marginBottom : '5%'}}>
         <TouchableOpacity onPress={ ()=>{
               this.storeData();
               this.props.navigation.navigate('Workout',{workout : this.state.workoutPlan,})
@@ -69,25 +69,9 @@ export default class HomeScreen extends Component {
     );
   }
 
-  test = async () =>{
-    // let keys = []
-    // try {
-    //   keys = await AsyncStorage.getAllKeys()
-    // } catch(e) {
-    //   // read key error
-    // }
-    // console.log(keys);
 
-    let value;
-    try {
-      value = await AsyncStorage.getItem('@#Chu');
-    } catch (error) {
-    }
-    console.log( JSON.parse(value) );
-  }
 
   render() {
-    this.test();
     return (
         <ImageBackground source={require('../img/cover.jpg')}  resizeMode='cover' style={styles.imageStyle}>
           <Header
