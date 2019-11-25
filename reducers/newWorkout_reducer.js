@@ -43,9 +43,12 @@ export default reducer = ( state = initialState, action) => {
             break;
         case 'UPDATE_LIST_OF_ALL_CUSTOM_PLANS':
             state = { ...state, allCustomPlansData : action.payload  }
-            console.log('UPDATE_LIST_OF_ALL_CUSTOM_PLANS')
-            console.log(state.allCustomPlansData)
+            // console.log('UPDATE_LIST_OF_ALL_CUSTOM_PLANS')
+            // console.log(state.allCustomPlansData)
             break; 
+        case 'UPDATE_LAST_PLAN_USED':
+            state = { ...state, lastPlanUsed : action.payload  }
+            break;
     }
     return state;
 }

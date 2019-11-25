@@ -106,7 +106,16 @@ const allExercises = [
     Drag_Curls
 ]
 
-//TODO: need to be refactored I just do it quick and dirty 
-const chestWorkout = [Barbell_Bench_Press];
+const getPartWorkout = (part) =>{
+    let list = [];
+    for(let i = 0; i < allExercises.length; i++){
+        // console.log(allExercises[i]);
+        // console.log(allExercises[i].part);
+        if( allExercises[i].part === part){
+            list.push(allExercises[i]);
+        }
+    }
+    return list;
+}
 
-export {fullBody_A_data , fullBody_B_data , allExercises}
+export { fullBody_A_data , fullBody_B_data , allExercises , getPartWorkout }

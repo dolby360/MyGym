@@ -9,19 +9,19 @@ export const getAllCustomData = async () =>{
     } catch(e) {
         // read key error
     }
-    console.log(keys);
+    // console.log(keys);
     let ret = [];
     let value;
     for(let i = 0; i < keys.length; i++){
-        console.log('--->>>>>>>>>>>')
-        console.log(keys[i].substring(0,2))
+        // console.log('--->>>>>>>>>>>')
+        // console.log(keys[i].substring(0,2))
         if(keys[i].substring(0,2) == '@#'){
             value = {
                 id : String(i + 10),
                 name : keys[i].substring(2,keys[i].length),
             }
-            console.log('----------->')
-            console.log(value)
+            // console.log('----------->')
+            // console.log(value)
             ret.push(value);
         }
     }    

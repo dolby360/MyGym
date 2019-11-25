@@ -50,17 +50,19 @@ class WorkoutPlanScreen extends Component {
         const workoutPlan = this.props.navigation.getParam('workout',null);
         let data = this.getData(workoutPlan);
         return(
-            <View style={{flex:1}}>
+            <View style={{flex:1 , }}>
                 <View style={styles.top}>
                     <ScrollView>
                         <View style={styles.scroll}>
-                        <FlatList
-                            data={data}
-                            renderItem={ 
-                                ({ item }) => this.getExercise({item})
-                            }
-                            keyExtractor={(item,index) => item.id}
-                        />
+                            <View style={{marginTop : 20}}>
+                                <FlatList
+                                    data={data}
+                                    renderItem={ 
+                                        ({ item }) => this.getExercise({item})
+                                    }
+                                    keyExtractor={(item,index) => item.id}
+                                />
+                            </View>
                         </View>
                     </ScrollView>
                 </View>
@@ -88,6 +90,7 @@ const styles = StyleSheet.create({
     },
     top:{
         flex : 4 ,
+        
         // backgroundColor : 'blue'
     },
     scroll : {
@@ -96,6 +99,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         backgroundColor: 'rgba(0,0,0,.1)',
         // marginHorizontal: 20,
+        
     }, 
     stopwatch:{
         flex : 1,

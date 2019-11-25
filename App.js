@@ -13,7 +13,7 @@ import reducer from './reducers/newWorkout_reducer';
 
 const AppNavigator = createDrawerNavigator({
   Home : {
-    // screen : DeleteWorkout,
+    // screen : CreateNewWorkout,
     screen : HomeScreen,
     navigationOptions : (navigation) => ({
       headerTitle : LogoTitle
@@ -38,6 +38,7 @@ const AppNavigator = createDrawerNavigator({
     }),
   },
 },{
+  drawerWidth : 190
   // initialRouteName : 'Home'
 });
 

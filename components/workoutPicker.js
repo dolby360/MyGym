@@ -15,11 +15,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import * as customPlanUtil  from '../logicLevel/customPlans';
 
-
 class WorkoutPicker extends Component{
     constructor(props){
         super(props);
-        props.setWorkoutFunc(workout.fullBody_A);
         this.updateListOfAllCustomPlans();
     }
 
@@ -28,21 +26,13 @@ class WorkoutPicker extends Component{
         this.props.updateListOfAllCustomPlans(list);
     }
 
-    state = {
-        selected : workout.fullBody_A,
-    }
     setSelectedValue = (value) =>{
-
-        this.setState({ selected : value }) 
-        this.props.setWorkoutFunc(value);
-    }
-
-    componentDidMount(){
-        this.state.selected = this.props.initialWorkout;
+        console.log(value);
+        this.props.setLastPlanUsed(Number(value));
     }
 
     checkIcon = (workoutType) =>{
-        if( this.state.selected === workoutType ){
+        if( this.props.lastPlanUsed === workoutType ){
             return(
                 <Image 
                     style ={{ height : textButtonHeight,width : textButtonHeight, marginRight : '5%'}}
@@ -56,7 +46,7 @@ class WorkoutPicker extends Component{
     fullBodyCard = () =>{
         return(
             <Card style={styles.cardFullBody}>
-                <Text style={{ flex : 1, alignSelf : 'center',textAlign : 'center',marginLeft : 5,fontSize : 20}}>Full Body</Text>
+                <Text style={ styles.fullBodyTitle }> Full Body </Text>
                 <View style={{ justifyContent : 'flex-end', flexDirection : 'column', flex : 5}}>
                     <TouchableOpacity style={styles.fullBodyPick} onPress={ () => this.setSelectedValue(workout.fullBody_A)}>
                         <Text style={ styles.workoutText }>Workout A</Text>
@@ -99,8 +89,9 @@ class WorkoutPicker extends Component{
         );
     } 
 
+
     customPlan = () => {
-        console.log('but then I updated')
+        // console.log('but then I updated')
         return(
             <Card style={styles.cardCustom}>
                 <Text style={{ flex : 1, alignSelf : 'center',textAlign : 'center',marginLeft : 5,fontSize : 20}}>Custom Plans</Text>
@@ -133,6 +124,7 @@ class WorkoutPicker extends Component{
 function mapStateToProps(state) {
     return {
         allCustomPlansData : state.allCustomPlansData,
+        lastPlanUsed : state.lastPlanUsed,
     }
 }
 
@@ -140,6 +132,7 @@ function mapDispatchToProps(dispatch) {
     return {
         setCustomWorkout: (plan) => dispatch({ type: 'CUSTOM_PLAN' , payload : plan}),
         updateListOfAllCustomPlans : (listOfCustomPlans) => dispatch({ type: 'UPDATE_LIST_OF_ALL_CUSTOM_PLANS' , payload : listOfCustomPlans}),
+        setLastPlanUsed: (plan) => dispatch({ type: 'UPDATE_LAST_PLAN_USED' , payload : plan}),
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(WorkoutPicker)
@@ -151,7 +144,7 @@ const styles = StyleSheet.create({
     fullBodyPick : {
         flexDirection : 'row',
         backgroundColor : '#A8D3EE',
-        width : '90%',
+        width : '70%',
         marginBottom : '7%',
         height : textButtonHeight,
         alignSelf : 'center',
@@ -164,18 +157,19 @@ const styles = StyleSheet.create({
         flex : 1,
     },
     cardFullBody : {
+        justifyContent : 'space-evenly',
         flexDirection : 'column',
         alignSelf : 'center',
-        width : '80%',
+        width : '90%',
         alignItems : 'stretch',
         borderRadius:10,
         borderWidth: 1,
-        flex : 1.2,
+        flex : 1.5,
     },
     cardCustom : {
         flexDirection : 'column',
         alignSelf : 'center',
-        width : '80%',
+        width : '90%',
         alignItems : 'stretch',
         borderRadius:10,
         borderWidth: 1,
@@ -186,5 +180,12 @@ const styles = StyleSheet.create({
         textAlignVertical : 'center',
         marginLeft : 5,
         fontSize : 16,
+    },
+    fullBodyTitle : {
+        flex : 1, 
+        alignSelf : 'center',
+        textAlign : 'center',
+        marginLeft : 5,
+        fontSize : 20,
     }
 });

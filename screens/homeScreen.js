@@ -5,24 +5,20 @@ import WorkoutPicker from '../components/workoutPicker';
 import Header from '../components/header';
 import {workout} from '../enums/workouts';
 import AsyncStorage from '@react-native-community/async-storage';
+import { connect } from 'react-redux';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   constructor(props) {
     super(props);
     
     this.retrieveData();
   }
-  state = {
-    workoutPlan : workout.fullBody_A
-  }
-
+  
   retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem('lastPlanUsed');                                                          
       if (value !== null) {
-        this.setState({
-          workoutPlan : Number(value)
-        });
+        this.props.setLastPlanUsed(Number(value));
       }
     } catch (error) {
       alert(error)
@@ -31,7 +27,7 @@ export default class HomeScreen extends Component {
 
   storeData = async () => {
     try {
-        await AsyncStorage.setItem('lastPlanUsed', String(this.state.workoutPlan));
+        await AsyncStorage.setItem('lastPlanUsed', String(this.props.lastPlanUsed));
     } catch (error) {
         // Error saving data
         alert(error)
@@ -39,10 +35,8 @@ export default class HomeScreen extends Component {
   };
 
   setWorkoutPlan = (plan) =>{
-    this.setState({
-      workoutPlan : plan,
-    });
-    console.log(plan);
+    this.props.setLastPlanUsed(Number(value));
+    // console.log(plan);
   }
 
   toggleSideBar = () =>{
@@ -54,7 +48,7 @@ export default class HomeScreen extends Component {
       <View style={{flex : 1.5,alignSelf: 'center',justifyContent : 'flex-end',marginBottom : '5%'}}>
         <TouchableOpacity onPress={ ()=>{
               this.storeData();
-              this.props.navigation.navigate('Workout',{workout : this.state.workoutPlan,})
+              this.props.navigation.navigate('Workout',{workout : this.props.lastPlanUsed,})
             } 
           }>
           <View style={styles.customButton}>
@@ -68,8 +62,6 @@ export default class HomeScreen extends Component {
       </View>
     );
   }
-
-
 
   render() {
     return (
@@ -85,7 +77,6 @@ export default class HomeScreen extends Component {
             <View style={{flex : 8}}>
               <WorkoutPicker 
                 setWorkoutFunc={this.setWorkoutPlan}
-                initialWorkout={this.state.workoutPlan}
               />
             </View>
             {this.letsStart()}
@@ -95,6 +86,21 @@ export default class HomeScreen extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    lastPlanUsed : state.lastPlanUsed,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+      setLastPlanUsed: (plan) => dispatch({ type: 'UPDATE_LAST_PLAN_USED' , payload : plan}),
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)
+
+
 
 const styles = StyleSheet.create({
 
