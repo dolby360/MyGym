@@ -18,6 +18,12 @@ class WorkoutField extends Component {
         // alert(this.props.workoutName);
     };
 
+    updateText = () =>{
+        let { current: field } = this.fieldRef;
+        // alert(field.value());
+        this.props.setWorkoutName(field.value());
+        // alert(this.props.workoutName);
+    }
 
     render() {
         return(
@@ -26,6 +32,7 @@ class WorkoutField extends Component {
                     label='Workout name'
                     labelFontSize={16}
                     keyboardType='default'
+                    onChangeText={this.updateText}
                     onSubmitEditing={this.onSubmit}
                     ref={this.fieldRef}
                     containerStyle={styles.textView}

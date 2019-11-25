@@ -5,6 +5,7 @@ import HomeScreen from './screens/homeScreen';
 import WorkoutPlanScreen from './screens/workoutPlan';
 import LogoTitle from './components/logo';
 import CreateNewWorkout from "./screens/createNewWorkoutScreen";
+import DeleteWorkout from "./screens/deletePlanScreen";
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
@@ -20,6 +21,15 @@ const AppNavigator = createDrawerNavigator({
   },
   NewWorkout : {
     screen : CreateNewWorkout,
+    navigationOptions : {
+      title: 'New Workout',
+    },
+  },
+  DeletePlans : {
+    screen : DeleteWorkout,
+    navigationOptions : {
+      title: 'Delete Workout Plan',
+    },
   },
   Workout : {
     screen : WorkoutPlanScreen,
@@ -28,6 +38,7 @@ const AppNavigator = createDrawerNavigator({
     }),
   },
 },{
+  drawerWidth : 190
   // initialRouteName : 'Home'
 });
 

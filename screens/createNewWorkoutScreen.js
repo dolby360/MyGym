@@ -6,6 +6,7 @@ import WorkoutField from "../components/buildPlan/workoutField";
 import ExerciseList from '../components/buildPlan/exerciseList';
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
+import * as customPlanUtil  from '../logicLevel/customPlans';
 
 class CreateNewWorkout extends Component {
   constructor(props) {
@@ -27,9 +28,14 @@ class CreateNewWorkout extends Component {
     try {
         let value = await this.retrieveData( '@#' + this.props.workoutName);
         if( value !== null){
-          await AsyncStorage.removeItem( '@#' + this.props.workoutName)
+          await AsyncStorage.removeItem( '@#' + this.props.workoutName);
         }
         await AsyncStorage.setItem( '@#' + this.props.workoutName, JSON.stringify(this.props.workoutPlan));
+        let list = await customPlanUtil.getAllCustomData();
+        this.props.updateListOfAllCustomPlans(list);
+        //Because next time we don't want that all the configuration from last creating workout 
+        //will remain. 
+        // this.props.clearWorkoutData(); 
     } catch (error) {
         // Error saving data
         alert(error)
@@ -47,9 +53,11 @@ class CreateNewWorkout extends Component {
             <Button
                 title="Add workout"
                 onPress={ ()=>{
+                    console.log('on press add plan button:')
                     console.log(this.props.workoutName)
                     console.log(this.props.workoutPlan)
                     this.storeData();
+                    this.props.navigation.navigate('Home')
                 } }
             />
         </View>
@@ -72,6 +80,14 @@ class CreateNewWorkout extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+      updateListOfAllCustomPlans : (newPlan) => dispatch({ type: 'UPDATE_LIST_OF_ALL_CUSTOM_PLANS' , payload : newPlan}),
+      clearWorkoutData : () => dispatch({ type: 'CLEAR_WORKOUT_PLAN' , payload : null}),
+      setWorkoutName : (text) => dispatch({ type: 'NEW_WORKOUT_NAME' , payload : text})
+  }
+}
+
 function mapStateToProps(state) {
   return {
     workoutName : state.workoutName,
@@ -79,7 +95,7 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(CreateNewWorkout);
+export default connect(mapStateToProps,mapDispatchToProps)(CreateNewWorkout);
 
 const styles = StyleSheet.create({
     container: {

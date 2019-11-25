@@ -6,8 +6,9 @@ import Exercises from '../components/Exercise';
 import StopWatch from '../components/stopWatch';
 import { fullBody_A_data , fullBody_B_data } from '../data/exerciseData';
 import { BorderlessButton } from 'react-native-gesture-handler';
+import { connect } from 'react-redux'
 
-export default class WorkoutPlanScreen extends Component {
+class WorkoutPlanScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -38,6 +39,7 @@ export default class WorkoutPlanScreen extends Component {
                 data = fullBody_B_data;
             break;
             default:
+                data = this.props.customWorkoutPlan;
                 break;
         }
         return data;
@@ -48,17 +50,19 @@ export default class WorkoutPlanScreen extends Component {
         const workoutPlan = this.props.navigation.getParam('workout',null);
         let data = this.getData(workoutPlan);
         return(
-            <View style={{flex:1}}>
+            <View style={{flex:1 , }}>
                 <View style={styles.top}>
                     <ScrollView>
                         <View style={styles.scroll}>
-                        <FlatList
-                            data={data}
-                            renderItem={ 
-                                ({ item }) => this.getExercise({item})
-                            }
-                            keyExtractor={(item,index) => item.id}
-                        />
+                            <View style={{marginTop : 20}}>
+                                <FlatList
+                                    data={data}
+                                    renderItem={ 
+                                        ({ item }) => this.getExercise({item})
+                                    }
+                                    keyExtractor={(item,index) => item.id}
+                                />
+                            </View>
                         </View>
                     </ScrollView>
                 </View>
@@ -70,6 +74,14 @@ export default class WorkoutPlanScreen extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+      customWorkoutPlan : state.customWorkoutPlan,
+    }
+  }
+  
+export default connect(mapStateToProps)(WorkoutPlanScreen)
+
 const styles = StyleSheet.create({
     container:{
         // width : '100%',
@@ -78,6 +90,7 @@ const styles = StyleSheet.create({
     },
     top:{
         flex : 4 ,
+        
         // backgroundColor : 'blue'
     },
     scroll : {
@@ -86,6 +99,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         backgroundColor: 'rgba(0,0,0,.1)',
         // marginHorizontal: 20,
+        
     }, 
     stopwatch:{
         flex : 1,

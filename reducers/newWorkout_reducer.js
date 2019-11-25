@@ -1,7 +1,8 @@
 
 const initialState = {
     workoutName : 'dddd',
-    workoutPlan : []
+    workoutPlan : [],
+    updateCustomPlanInMainScreen : false
 }
 
 addOrRemoveFromList = (item , state) =>{
@@ -35,6 +36,18 @@ export default reducer = ( state = initialState, action) => {
         case 'CLEAR_WORKOUT_PLAN':
             state = { ...state, workoutName : '' }
             state = { ...state, workoutPlan : [] }
+            break;
+        case 'CUSTOM_PLAN':
+            () => alert('sss');
+            state = { ...state, customWorkoutPlan : action.payload }
+            break;
+        case 'UPDATE_LIST_OF_ALL_CUSTOM_PLANS':
+            state = { ...state, allCustomPlansData : action.payload  }
+            // console.log('UPDATE_LIST_OF_ALL_CUSTOM_PLANS')
+            // console.log(state.allCustomPlansData)
+            break; 
+        case 'UPDATE_LAST_PLAN_USED':
+            state = { ...state, lastPlanUsed : action.payload  }
             break;
     }
     return state;

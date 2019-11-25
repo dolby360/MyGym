@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import {TextInput , SafeAreaView , StyleSheet, Text, View , Image} from 'react-native';
+import {  Dimensions,TextInput , SafeAreaView , StyleSheet, Text, View , Image} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Counter from '../components/counter';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
@@ -71,6 +71,8 @@ export default class Exercise extends Component {
     }
 }
 
+const screenWidth = Math.round(Dimensions.get('window').width);
+
 const styles = StyleSheet.create({
     inputText : { 
         flex : 1,
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         alignSelf: 'stretch',
         // flexDirection : 'column',
-        width : 390,
+        width : screenWidth - (screenWidth/10),
         // height : '100%',
         marginBottom : 20
     },
